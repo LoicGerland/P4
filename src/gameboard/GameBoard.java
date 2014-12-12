@@ -1,22 +1,18 @@
 package gameboard;
-import java.awt.List;
-import java.util.ArrayList;
 
-public abstract class GameBoard {
+import java.io.Serializable;
+import java.util.List;
+
+
+public abstract class GameBoard implements Serializable {
 	
 	private int width ;
 	private int length ; 
-	private int [][] board ;
-	public List history; 
-	
-	
-
+	protected  int [][] board ;
+	protected List<Turn> history; 
 
 	
-
-
-	
-public GameBoard(int width , int length , List  history ){
+public GameBoard(int width , int length , List<Turn>  history ){
 
 		this.width = width ;
 		this.length = length;
@@ -45,11 +41,6 @@ public GameBoard(int width, int length){
 }
 
 
-
-
-
-
-
 public String toString(){
 	StringBuilder b = new StringBuilder();
 	
@@ -73,15 +64,6 @@ public String toString(){
 
 
 
-
-
-
-
-
-
-
-
-
 public abstract void play (Turn t);
 	
 
@@ -91,9 +73,14 @@ public abstract void cancel();
 public abstract Player win();	
 	
 public Turn lastTurn(){
-	return this.history(history.size() - 1);
+	return this.history.get(history.size() - 1);
 	
 }
+
+public int [][] board(){
+	return this.board;
+}
+
 
 }
 	
