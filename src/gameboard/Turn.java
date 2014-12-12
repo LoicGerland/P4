@@ -1,10 +1,11 @@
+package gameboard;
 
 public class Turn {
-	public int  player ;
+	public Player  player ;
 	public Position position;
 	
 	
-	public Turn(int player, Position position ){
+	public Turn(Player player, Position position ){
 		this.player = player;
 		this.position = position;
 	}

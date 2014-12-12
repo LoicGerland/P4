@@ -1,31 +1,26 @@
+package gameboard;
+import java.awt.List;
 import java.util.ArrayList;
 
-public class GameBoard {
+public abstract class GameBoard {
 	
 	private int width ;
 	private int length ; 
 	private int [][] board ;
-	public ArrayList<Turn> history; 
+	public List history; 
 	
 	
 
 
-	public int getWidth() {
-		return width;
-	}
-
-
-
-	public int getLength() {
-		return length;
-	}
+	
 
 
 	
-public GameBoard(int width , int length ){
+public GameBoard(int width , int length , List  history ){
+
 		this.width = width ;
 		this.length = length;
-		this.history = new ArrayList(0);
+		this.history =  history;
 		this.board = new int [length][width];
 		for(int i = 0; i < width ; i++ ){
 			for (int j = 0; j< length; j++){
@@ -34,6 +29,27 @@ public GameBoard(int width , int length ){
 			
 	}
 }
+
+public GameBoard(int width, int length){
+	
+	this.width = width ;
+	this.length = length;
+	
+	this.board = new int [length][width];
+	for(int i = 0; i < width ; i++ ){
+		for (int j = 0; j< length; j++){
+			this.board[j][i]=0;
+			}
+		
+}
+}
+
+
+
+
+
+
+
 public String toString(){
 	StringBuilder b = new StringBuilder();
 	
@@ -55,18 +71,29 @@ public String toString(){
 		
 }
 
-public void play (Turn t){
-	this.board[t.position.x][t.position.y] = t.player ;
-	this.history.add(t);
-		
-}
 
-public void cancel(){
-	System.out.println("Dernier coup annulé ;" + this.history.get(this.history.size()-1));
-	this.history.remove(this.history.size() -1 );
+
+
+
+
+
+
+
+
+
+
+public abstract void play (Turn t);
 	
-	}
- 
+
+
+public abstract void cancel();
+
+public abstract Player win();	
+	
+public Turn lastTurn(){
+	return this.history(history.size() - 1);
+	
+}
 
 }
 	
