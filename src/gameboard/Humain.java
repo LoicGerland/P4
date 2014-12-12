@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Humain extends Player {
 
-	public Humain(int number) {
-		super(number);
+	public Humain(int number,GameBoard board ) {
+		super(number,board);
 		
 	}
 
