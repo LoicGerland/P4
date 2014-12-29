@@ -3,8 +3,8 @@ package gameboard;
 import java.io.Serializable;
 
 public class Turn implements Serializable{
-	public Player  player ;
-	public Position position;
+	private Player  player ;
+	private Position position;
 	
 	
 	public Turn(Player player, Position position ){
@@ -15,5 +15,13 @@ public class Turn implements Serializable{
 	
 	public String toString(){
 		return("Joueur: " + player + "\n" + this.position.toString());
+	}
+	
+	public Position getPosition(){
+		return this.position;
+	}
+	
+	public Player getPlayer(){
+		return this.player;
 	}
 }

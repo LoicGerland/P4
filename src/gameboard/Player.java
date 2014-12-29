@@ -12,5 +12,7 @@ public abstract class Player {
 	
 	public abstract Turn play();
 
-	
+	public int getNumber(){
+		return this.number;
+	}
 }

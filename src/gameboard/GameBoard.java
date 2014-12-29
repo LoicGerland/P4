@@ -17,9 +17,9 @@ public GameBoard(int width , int length , List<Turn>  history ){
 		this.width = width ;
 		this.length = length;
 		this.history =  history;
-		this.board = new int [length][width];
-		for(int i = 0; i < width ; i++ ){
-			for (int j = 0; j< length; j++){
+		this.board = new int [width][length];
+		for(int i = 0; i < length ; i++ ){
+			for (int j = 0; j< width; j++){
 				this.board[j][i]=0;
 				}
 			
@@ -31,9 +31,9 @@ public GameBoard(int width, int length){
 	this.width = width ;
 	this.length = length;
 	
-	this.board = new int [length][width];
-	for(int i = 0; i < width ; i++ ){
-		for (int j = 0; j< length; j++){
+	this.board = new int [width][length];
+	for(int i = 0; i < length ; i++ ){
+		for (int j = 0; j< width; j++){
 			this.board[j][i]=0;
 			}
 		
@@ -44,8 +44,8 @@ public GameBoard(int width, int length){
 public String toString(){
 	StringBuilder b = new StringBuilder();
 	
-	for(int i = 0; i < width ; i++ ){
-		for (int j = 0; j< length; j++){
+	for(int i = 0; i < length ; i++ ){
+		for (int j = 0; j< width; j++){
 			switch ( this.board[j][i]){
 			case 0 : b.append("◌");
 				break;
