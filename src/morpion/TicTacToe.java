@@ -1,23 +1,19 @@
-package puissance4;
-
-import java.util.List;
+package morpion;
 
 import gameboard.GameBoard;
 import gameboard.InvalidTurnException;
 import gameboard.Player;
 import gameboard.Turn;
 
+import java.util.List;
 
-public class ConnectFour extends GameBoard {
+public class TicTacToe extends GameBoard{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
-	public final static int WIDTH = 7;
+	public final static int WIDTH = 3;
 	
-	public final static int HEIGHT = 6;
+	public final static int HEIGHT = 3;
 	
 	
 	private Player J1;
@@ -26,7 +22,7 @@ public class ConnectFour extends GameBoard {
 	
 	private Player[] P = new Player[2];
 
-	public ConnectFour(Player j1, Player j2,List<Turn> history) {
+	public TicTacToe(Player j1, Player j2,List<Turn> history) {
 		super(WIDTH,HEIGHT,history);
 		this.J1 = j1;
 		this.J2 = j2;
@@ -34,7 +30,7 @@ public class ConnectFour extends GameBoard {
 		P[1] = this.J2;
  	}
 	
-	public ConnectFour(Player j1, Player j2){
+	public TicTacToe(Player j1, Player j2){
 		super(WIDTH,HEIGHT);
 		this.J1 = j1;
 		this.J2 = j2;
@@ -47,8 +43,7 @@ public class ConnectFour extends GameBoard {
 		
 		Turn t = null;
 		Player p = null;
-		int nextP = 0;
-		Player nextPlayer = this.P[nextP];
+		Player nextPlayer = this.P[0];
 		int nbCoups = 0;
 		System.out.println(this);
 		
@@ -59,31 +54,23 @@ public class ConnectFour extends GameBoard {
 				
 			}
 		
-		int y = 0;
-		while(!super.isEmpty(t.getPosition().getX(),y) && y < ConnectFour.HEIGHT - 1)
-		{
-			y++;
-		}
-		
-		if(super.isEmpty(t.getPosition().getX(),y)){
-			this.board[t.getPosition().getX()][y] = nextPlayer.getNumber();
-			super.history.add(t);
+		if(super.isEmpty(t.getPosition().getX(),t.getPosition().getY())){
+			this.board[t.getPosition().getX()][t.getPosition().getY()] = nextPlayer.getNumber();
 			nbCoups++;
-			nextP = (nextP + 1) % 2;
-			nextPlayer = this.P[nextP];
+			nextPlayer = this.P[(0 + 1) % 2];
 			System.out.println(this);
 		}
-		else System.out.println("La colonne est pleine, jouez dans une autre colonne");
+		else System.out.println("La case est pleine, jouez dans une autre case");
 		
-		//if(nbCoups >= 7){
+		if(nbCoups > 7){
 			p = this.win();
 			if(p != null)
 			{
 				System.out.println(p+" a gagné !");
 			}
-		//}
+		}
 		
-		}while(nbCoups < ConnectFour.WIDTH*ConnectFour.HEIGHT && p == null );
+		}while(nbCoups < TicTacToe.WIDTH*TicTacToe.HEIGHT && p == null);
 		
 		if(p == null){
 			System.out.println("Il n'y aucun vainqueur !");
@@ -117,7 +104,7 @@ public class ConnectFour extends GameBoard {
 		int i = 0;
 		int nb = 0;
 		
-		while(nb<4 && i < ConnectFour.WIDTH){
+		while(nb<3 && i < TicTacToe.WIDTH){
 			if(super.board[i][y]==numP){
 				nb += 1;
 				i = i+1;
@@ -125,7 +112,7 @@ public class ConnectFour extends GameBoard {
 			else nb = 0;
 		}
 		
-		if(nb == 4){
+		if(nb == 3){
 			return true;
 		}
 		else return false;
@@ -138,7 +125,7 @@ public class ConnectFour extends GameBoard {
 		int i = 0;
 		int nb = 0;
 		
-		while(nb<4 && i < ConnectFour.HEIGHT){
+		while(nb<3 && i < TicTacToe.HEIGHT){
 			if(super.board[x][i]==numP){
 				nb += 1;
 				i= i+1;
@@ -146,7 +133,7 @@ public class ConnectFour extends GameBoard {
 			else nb = 0;
 		}
 		
-		if(nb == 4){
+		if(nb == 3){
 			return true;
 		}
 		else return false;
@@ -165,7 +152,7 @@ public class ConnectFour extends GameBoard {
 			y = y-1;					
 		}
 		
-		while(nb<4 && x > ConnectFour.WIDTH && y > ConnectFour.HEIGHT){
+		while(nb<3 && x > TicTacToe.WIDTH && y > TicTacToe.HEIGHT){
 			if(super.board[x][y]==numP){
 				nb += 1;
 				x = x+1;
@@ -174,18 +161,18 @@ public class ConnectFour extends GameBoard {
 			else nb = 0;
 		}
 		
-		if(nb == 4){
+		if(nb == 3){
 			return true;
 		}
 		
 		nb = 0;
 		
-		while(x < ConnectFour.WIDTH || y!=0){
+		while(x < TicTacToe.WIDTH || y!=0){
 			x = x+1;
 			y = y-1;					
 		}
 		
-		while(nb<4 && x < ConnectFour.WIDTH && y > ConnectFour.HEIGHT){
+		while(nb<3 && x < TicTacToe.WIDTH && y > TicTacToe.HEIGHT){
 			if(super.board[x][y]==numP){
 				nb += 1;
 				x = x-1;
@@ -194,11 +181,10 @@ public class ConnectFour extends GameBoard {
 			else nb = 0;
 		}
 		
-		if(nb == 4){
+		if(nb == 3){
 			return true;
 		}
 		
 		return false;
 	}
-
 }

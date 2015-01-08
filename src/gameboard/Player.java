@@ -2,17 +2,29 @@ package gameboard;
 
 public abstract class Player {
 
-	private static int number;
-	protected static GameBoard board;
+	private static int PlayerNUM = 0;
+	private final int number;
+	private String name;
 	
-	public Player(int number, GameBoard board){
-		this.number = number;
-		this.board = board;
+	public Player(){
+		Player.PlayerNUM++;
+		this.number = Player.PlayerNUM;
+		this.name = "Joueur "+this.number;
 	}
 	
-	public abstract Turn play();
+	public Player(String name){
+		Player.PlayerNUM++;
+		this.number = Player.PlayerNUM;
+		this.name = name;
+	}
+	
+	public abstract Turn play() throws InvalidTurnException;
 
 	public int getNumber(){
 		return this.number;
+	}
+	
+	public String getName(){
+		return this.name;
 	}
 }

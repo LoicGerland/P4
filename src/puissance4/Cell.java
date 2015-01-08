@@ -1,9 +1,9 @@
 package puissance4;
 
 public enum Cell {
-	VIDE("◌"),
-	BLANC("○"),
-	NOIR("●");
+	VIDE("_"),
+	BLANC("X"),
+	NOIR("O");
 	
 	public String content;
 	
