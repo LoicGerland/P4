@@ -59,10 +59,10 @@ public class ConnectFour extends GameBoard {
 				
 			}
 		
-		int y = 0;
-		while(!super.isEmpty(t.getPosition().getX(),y) && y < ConnectFour.HEIGHT - 1)
+		int y = ConnectFour.HEIGHT - 1;
+		while(!super.isEmpty(t.getPosition().getX(),y) && y >= 0)
 		{
-			y++;
+			y--;
 		}
 		
 		if(super.isEmpty(t.getPosition().getX(),y)){
@@ -75,13 +75,13 @@ public class ConnectFour extends GameBoard {
 		}
 		else System.out.println("La colonne est pleine, jouez dans une autre colonne");
 		
-		//if(nbCoups >= 7){
+		if(nbCoups >= 7){
 			p = this.win();
 			if(p != null)
 			{
-				System.out.println(p+" a gagné !");
+				System.out.println(p+" a gagnï¿½ !");
 			}
-		//}
+		}
 		
 		}while(nbCoups < ConnectFour.WIDTH*ConnectFour.HEIGHT && p == null );
 		
@@ -103,26 +103,27 @@ public class ConnectFour extends GameBoard {
 		Turn t = super.lastTurn();
 		Player p = t.getPlayer();
 		
-		if(this.checkLine(t,p) || this.checkColumn(t,p) ||this.checkDiagonal(t,p)){
+		if(this.checkLine(t,p) || this.checkColumn(t,p) ||this.checkDiagonalTop(t,p) || this.checkDiagonalBot(t,p) ){
 			return p;
 		}
 		
 		return null;
 	}
 	
-	public boolean checkLine(Turn t, Player p){
+	public boolean checkLine(Turn t, Player p ){
+		System.out.println("Check Line");
 		int y = t.getPosition().getY();
 		int numP = p.getNumber();
 		
 		int i = 0;
 		int nb = 0;
 		
-		while(nb<4 && i < ConnectFour.WIDTH){
+		while(nb<4 && i <= ConnectFour.WIDTH - 1){
 			if(super.board[i][y]==numP){
 				nb += 1;
-				i = i+1;
 			}
 			else nb = 0;
+			i = i+1;
 		}
 		
 		if(nb == 4){
@@ -132,18 +133,19 @@ public class ConnectFour extends GameBoard {
 	}
 	
 	public boolean checkColumn(Turn t, Player p){
+		System.out.println("Check Column");
 		int x = t.getPosition().getX();
 		int numP = p.getNumber();
 		
 		int i = 0;
 		int nb = 0;
 		
-		while(nb<4 && i < ConnectFour.HEIGHT){
+		while(nb<4 && i < ConnectFour.HEIGHT - 1){
 			if(super.board[x][i]==numP){
 				nb += 1;
-				i= i+1;
 			}
 			else nb = 0;
+			i = i+1;
 		}
 		
 		if(nb == 4){
@@ -153,45 +155,54 @@ public class ConnectFour extends GameBoard {
 	}
 		
 	
-	public boolean checkDiagonal(Turn t, Player p){
+	public boolean checkDiagonalTop(Turn t, Player p){
+		System.out.println("Check diagonalsTop");
 		int x = t.getPosition().getX();
 		int y = t.getPosition().getY();
 		int numP = p.getNumber();
 		
 		int nb = 0;
 		
-		while(x !=0 || y!=0){
+		while(x >0 && y>0){
 			x = x-1;
 			y = y-1;					
 		}
 		
-		while(nb<4 && x > ConnectFour.WIDTH && y > ConnectFour.HEIGHT){
+		while(nb<4 && x > ConnectFour.WIDTH - 1 && y > ConnectFour.HEIGHT - 1){
 			if(super.board[x][y]==numP){
 				nb += 1;
-				x = x+1;
-				y = y+1;
 			}
 			else nb = 0;
+			x = x+1;
+			y = y+1;
 		}
 		
 		if(nb == 4){
 			return true;
 		}
+		return false;
+	}
+	
+	public boolean checkDiagonalBot(Turn t, Player p){
+		System.out.println("Check diagonalsBot");
+		int x = t.getPosition().getX();
+		int y = t.getPosition().getY();
+		int numP = p.getNumber();
 		
-		nb = 0;
+		 int nb = 0;
 		
-		while(x < ConnectFour.WIDTH || y!=0){
+		while(x < ConnectFour.WIDTH -1 && y>0){
 			x = x+1;
 			y = y-1;					
 		}
 		
-		while(nb<4 && x < ConnectFour.WIDTH && y > ConnectFour.HEIGHT){
+		while(nb<4 && x >= 0 && y < ConnectFour.HEIGHT - 1){
 			if(super.board[x][y]==numP){
 				nb += 1;
-				x = x-1;
-				y = y+1;
 			}
 			else nb = 0;
+			x = x-1;
+			y = y+1;
 		}
 		
 		if(nb == 4){
