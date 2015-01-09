@@ -43,7 +43,8 @@ public class TicTacToe extends GameBoard{
 		
 		Turn t = null;
 		Player p = null;
-		Player nextPlayer = this.P[0];
+		int nextP = 0;
+		Player nextPlayer = this.P[nextP];
 		int nbCoups = 0;
 		System.out.println(this);
 		
@@ -56,28 +57,26 @@ public class TicTacToe extends GameBoard{
 		
 		if(super.isEmpty(t.getPosition().getX(),t.getPosition().getY())){
 			this.board[t.getPosition().getX()][t.getPosition().getY()] = nextPlayer.getNumber();
+			super.history.add(t);
 			nbCoups++;
-			nextPlayer = this.P[(0 + 1) % 2];
+			nextP = (nextP + 1) % 2;
+			nextPlayer = this.P[nextP];
 			System.out.println(this);
 		}
 		else System.out.println("La case est pleine, jouez dans une autre case");
 		
-		if(nbCoups > 7){
 			p = this.win();
 			if(p != null)
 			{
-				System.out.println(p+" a gagné !");
+				System.out.println(p.getName() +" a gagné!");
 			}
-		}
 		
-		}while(nbCoups < TicTacToe.WIDTH*TicTacToe.HEIGHT && p == null);
+		}while(nbCoups < TicTacToe.WIDTH*TicTacToe.HEIGHT && p == null );
 		
 		if(p == null){
 			System.out.println("Il n'y aucun vainqueur !");
-		}
-		
-	}	
-
+		}	
+	}
 	@Override
 	public void cancel() {
 		// TODO Auto-generated method stub
@@ -90,26 +89,27 @@ public class TicTacToe extends GameBoard{
 		Turn t = super.lastTurn();
 		Player p = t.getPlayer();
 		
-		if(this.checkLine(t,p) || this.checkColumn(t,p) ||this.checkDiagonal(t,p)){
+		if(this.checkLine(t,p) || this.checkColumn(t,p) ||this.checkDiagonalTop(t,p) || this.checkDiagonalBot(t,p) ){
 			return p;
 		}
 		
 		return null;
 	}
 	
-	public boolean checkLine(Turn t, Player p){
+	public boolean checkLine(Turn t, Player p ){
+		System.out.println("Check Line");
 		int y = t.getPosition().getY();
 		int numP = p.getNumber();
 		
 		int i = 0;
 		int nb = 0;
 		
-		while(nb<3 && i < TicTacToe.WIDTH){
+		while(nb<3 && i <= TicTacToe.WIDTH - 1){
 			if(super.board[i][y]==numP){
 				nb += 1;
-				i = i+1;
 			}
 			else nb = 0;
+			i = i+1;
 		}
 		
 		if(nb == 3){
@@ -119,18 +119,19 @@ public class TicTacToe extends GameBoard{
 	}
 	
 	public boolean checkColumn(Turn t, Player p){
+		System.out.println("Check Column");
 		int x = t.getPosition().getX();
 		int numP = p.getNumber();
 		
 		int i = 0;
 		int nb = 0;
 		
-		while(nb<3 && i < TicTacToe.HEIGHT){
+		while(nb<3 && i <= TicTacToe.HEIGHT - 1){
 			if(super.board[x][i]==numP){
 				nb += 1;
-				i= i+1;
 			}
 			else nb = 0;
+			i = i+1;
 		}
 		
 		if(nb == 3){
@@ -140,45 +141,54 @@ public class TicTacToe extends GameBoard{
 	}
 		
 	
-	public boolean checkDiagonal(Turn t, Player p){
+	public boolean checkDiagonalTop(Turn t, Player p){
+		System.out.println("Check diagonalsTop");
 		int x = t.getPosition().getX();
 		int y = t.getPosition().getY();
 		int numP = p.getNumber();
 		
 		int nb = 0;
 		
-		while(x !=0 || y!=0){
+		while(x >0 && y>0){
 			x = x-1;
 			y = y-1;					
 		}
 		
-		while(nb<3 && x > TicTacToe.WIDTH && y > TicTacToe.HEIGHT){
+		while(nb<3 && x >= TicTacToe.WIDTH - 1 && y >= TicTacToe.HEIGHT - 1){
 			if(super.board[x][y]==numP){
 				nb += 1;
-				x = x+1;
-				y = y+1;
 			}
 			else nb = 0;
+			x = x+1;
+			y = y+1;
 		}
 		
 		if(nb == 3){
 			return true;
 		}
+		return false;
+	}
+	
+	public boolean checkDiagonalBot(Turn t, Player p){
+		System.out.println("Check diagonalsBot");
+		int x = t.getPosition().getX();
+		int y = t.getPosition().getY();
+		int numP = p.getNumber();
 		
-		nb = 0;
+		 int nb = 0;
 		
-		while(x < TicTacToe.WIDTH || y!=0){
+		while(x < TicTacToe.WIDTH -1 && y>0){
 			x = x+1;
 			y = y-1;					
 		}
 		
-		while(nb<3 && x < TicTacToe.WIDTH && y > TicTacToe.HEIGHT){
+		while(nb<3 && x >= 0 && y <= TicTacToe.HEIGHT - 1){
 			if(super.board[x][y]==numP){
 				nb += 1;
-				x = x-1;
-				y = y+1;
 			}
 			else nb = 0;
+			x = x-1;
+			y = y+1;
 		}
 		
 		if(nb == 3){
@@ -187,4 +197,5 @@ public class TicTacToe extends GameBoard{
 		
 		return false;
 	}
+
 }

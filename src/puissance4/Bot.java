@@ -16,16 +16,16 @@ public class Bot extends Player {
 		this.pos = new Random();
 	}
 	
-	public Bot(String name) {
-		super(name);
+	public Bot(int num,String name) {
+		super(num,name);
 		this.pos = new Random();		
 	}
 	
 
 	@Override
 	public Turn play() throws InvalidTurnException {
-		int x = pos.nextInt() % ConnectFour.WIDTH;
-		int y = pos.nextInt() % ConnectFour.HEIGHT;
+		int x = pos.nextInt(ConnectFour.WIDTH-1);
+		int y = pos.nextInt(ConnectFour.HEIGHT-1);
 			return new Turn(this, new Position(x,y) );		
 		
 	}

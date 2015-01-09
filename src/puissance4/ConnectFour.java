@@ -75,22 +75,18 @@ public class ConnectFour extends GameBoard {
 		}
 		else System.out.println("La colonne est pleine, jouez dans une autre colonne");
 		
-		if(nbCoups >= 7){
 			p = this.win();
 			if(p != null)
 			{
-				System.out.println(p+" a gagnï¿½ !");
+				System.out.println(p.getName() +" a gagné!");
 			}
-		}
 		
 		}while(nbCoups < ConnectFour.WIDTH*ConnectFour.HEIGHT && p == null );
 		
 		if(p == null){
 			System.out.println("Il n'y aucun vainqueur !");
-		}
-		
-	}	
-
+		}	
+	}
 	@Override
 	public void cancel() {
 		// TODO Auto-generated method stub
@@ -140,7 +136,7 @@ public class ConnectFour extends GameBoard {
 		int i = 0;
 		int nb = 0;
 		
-		while(nb<4 && i < ConnectFour.HEIGHT - 1){
+		while(nb<4 && i <= ConnectFour.HEIGHT - 1){
 			if(super.board[x][i]==numP){
 				nb += 1;
 			}
@@ -163,12 +159,10 @@ public class ConnectFour extends GameBoard {
 		
 		int nb = 0;
 		
-		while(x >0 && y>0){
-			x = x-1;
-			y = y-1;					
-		}
+		x = x - y;
+		y = 0;
 		
-		while(nb<4 && x > ConnectFour.WIDTH - 1 && y > ConnectFour.HEIGHT - 1){
+		while(nb<4 && x >= ConnectFour.WIDTH - 1 && y >= ConnectFour.HEIGHT - 1){
 			if(super.board[x][y]==numP){
 				nb += 1;
 			}
@@ -196,7 +190,7 @@ public class ConnectFour extends GameBoard {
 			y = y-1;					
 		}
 		
-		while(nb<4 && x >= 0 && y < ConnectFour.HEIGHT - 1){
+		while(nb<4 && x >= 0 && y <= ConnectFour.HEIGHT - 1){
 			if(super.board[x][y]==numP){
 				nb += 1;
 			}

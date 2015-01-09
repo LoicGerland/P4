@@ -13,8 +13,8 @@ public class Humain extends Player {
 		super();
 	}
 
-	public Humain(String name) {
-		super(name);
+	public Humain(int num,String name) {
+		super(num,name);
 	}
 
 	@Override

@@ -13,8 +13,8 @@ public class Humain extends Player{
 			super();
 		}
 
-		public Humain(String name) {
-			super(name);
+		public Humain(int num,String name) {
+			super(num,name);
 		}
 
 		@Override
@@ -31,7 +31,7 @@ public class Humain extends Player{
 			a = str.split(",");
 			int x = Integer.parseInt(a[0]);
 			int y = Integer.parseInt(a[1]);		
-			Position p = new Position(x-1,y) ;
+			Position p = new Position(x,y) ;
 			return p;
 		}
 }

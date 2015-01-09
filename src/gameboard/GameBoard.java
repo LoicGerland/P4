@@ -50,11 +50,11 @@ public String toString(){
 	for(int i = 0; i < height ; i++ ){
 		for (int j = 0; j< width; j++){
 			switch ( this.board[j][i]){
-			case 0 : b.append("_");
+			case 0 : b.append("|_|");
 				break;
-			case 1 : b.append("X");
+			case 1 : b.append("|X|");
 				break;
-			case 2 : b.append("O");
+			case 2 : b.append("|O|");
 				break;
 			}
 		}

@@ -12,9 +12,8 @@ public abstract class Player {
 		this.name = "Joueur "+this.number;
 	}
 	
-	public Player(String name){
-		Player.PlayerNUM++;
-		this.number = Player.PlayerNUM;
+	public Player(int num,String name){
+		this.number = num;
 		this.name = name;
 	}
 	

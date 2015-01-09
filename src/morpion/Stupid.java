@@ -16,16 +16,16 @@ private Random pos;
 		this.pos = new Random();
 	}
 	
-	public Stupid(String name) {
-		super(name);
+	public Stupid(int num,String name) {
+		super(num,name);
 		this.pos = new Random();		
 	}
 	
 
 	@Override
 	public Turn play() throws InvalidTurnException {
-		int x = pos.nextInt() % TicTacToe.WIDTH;
-		int y = pos.nextInt() % TicTacToe.HEIGHT;
+		int x = pos.nextInt(TicTacToe.WIDTH);
+		int y = pos.nextInt(TicTacToe.HEIGHT);
 			return new Turn(this, new Position(x,y) );		
 		
 	}
