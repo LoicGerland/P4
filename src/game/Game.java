@@ -32,7 +32,6 @@ public class Game{
 				morpion.Game.main(args);
 				break;
 			case 3 :
-				n = 3;
 				break;
 			default:
 				n = 0;

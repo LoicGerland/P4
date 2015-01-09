@@ -26,11 +26,21 @@ public class Humain extends Player {
 		return new Turn(this,parsePos(str));
 	}
 	
-	public Position parsePos(String str){
-		String[] a;
-		a = str.split("\0");
-		int x = Integer.parseInt(a[0]);
-		int y = 0;		
+	public Position parsePos(String str) throws InvalidTurnException{
+		int x =0;
+		int y =0;
+		try
+		{
+			x = Integer.parseInt(str);
+		}
+		catch(NumberFormatException e)
+		{
+			x = -1;
+		}
+		if(x == -1){
+			System.out.println("Coordonnées non valables");
+			throw new InvalidTurnException();
+		}	
 		Position p = new Position(x-1,y) ;
 		return p;
 	}

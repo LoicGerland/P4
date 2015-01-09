@@ -45,15 +45,19 @@ public class TicTacToe extends GameBoard{
 		Player p = null;
 		int nextP = 0;
 		Player nextPlayer = this.P[nextP];
+		boolean OK = true;
 		int nbCoups = 0;
 		System.out.println(this);
 		
 		do {
-		try {
-				t = nextPlayer.play();
-			} catch (InvalidTurnException e) {
-				
-			}
+			do{
+					OK = true;
+				try {
+						t = nextPlayer.play();
+					} catch (InvalidTurnException e) {
+						OK = false;
+					}
+				}while(OK == false);
 		
 		if(super.isEmpty(t.getPosition().getX(),t.getPosition().getY())){
 			this.board[t.getPosition().getX()][t.getPosition().getY()] = nextPlayer.getNumber();
@@ -63,7 +67,10 @@ public class TicTacToe extends GameBoard{
 			nextPlayer = this.P[nextP];
 			System.out.println(this);
 		}
-		else System.out.println("La case est pleine, jouez dans une autre case");
+		else {
+			System.out.println("La case est pleine, jouez dans une autre case");
+			System.out.println(this);
+		}
 		
 			p = this.win();
 			if(p != null)

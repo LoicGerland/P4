@@ -50,15 +50,20 @@ public class ConnectFour extends GameBoard {
 		int nextP = 0;
 		Player nextPlayer = this.P[nextP];
 		int nbCoups = 0;
+		boolean OK = true;
 		System.out.println(this);
 		
 		do {
-		try {
-				t = nextPlayer.play();
-			} catch (InvalidTurnException e) {
-				
-			}
-		
+			
+			do{
+				OK = true;
+			try {
+					t = nextPlayer.play();
+				} catch (InvalidTurnException e) {
+					OK = false;
+				}
+			}while(OK == false);
+			
 		int y = ConnectFour.HEIGHT - 1;
 		while(!super.isEmpty(t.getPosition().getX(),y) && y >= 0)
 		{
@@ -73,7 +78,10 @@ public class ConnectFour extends GameBoard {
 			nextPlayer = this.P[nextP];
 			System.out.println(this);
 		}
-		else System.out.println("La colonne est pleine, jouez dans une autre colonne");
+		else {
+			System.out.println("La colonne est pleine, jouez dans une autre colonne");
+			System.out.println(this);
+		}
 		
 			p = this.win();
 			if(p != null)
@@ -115,17 +123,17 @@ public class ConnectFour extends GameBoard {
 		int nb = 0;
 		
 		while(nb<4 && i <= ConnectFour.WIDTH - 1){
-			if(super.board[i][y]==numP){
+			if(board[i][y]==numP){
 				nb += 1;
+				if(nb == 4){
+					return true;
+				}
 			}
 			else nb = 0;
 			i = i+1;
 		}
 		
-		if(nb == 4){
-			return true;
-		}
-		else return false;
+		return false;
 	}
 	
 	public boolean checkColumn(Turn t, Player p){
@@ -139,15 +147,14 @@ public class ConnectFour extends GameBoard {
 		while(nb<4 && i <= ConnectFour.HEIGHT - 1){
 			if(super.board[x][i]==numP){
 				nb += 1;
+				if(nb == 4){
+			return true;
+				}
 			}
 			else nb = 0;
 			i = i+1;
 		}
-		
-		if(nb == 4){
-			return true;
-		}
-		else return false;
+		return false;
 	}
 		
 	
@@ -165,14 +172,13 @@ public class ConnectFour extends GameBoard {
 		while(nb<4 && x >= ConnectFour.WIDTH - 1 && y >= ConnectFour.HEIGHT - 1){
 			if(super.board[x][y]==numP){
 				nb += 1;
+				if(nb == 4){
+			return true;
+				}
 			}
 			else nb = 0;
 			x = x+1;
 			y = y+1;
-		}
-		
-		if(nb == 4){
-			return true;
 		}
 		return false;
 	}
@@ -193,16 +199,14 @@ public class ConnectFour extends GameBoard {
 		while(nb<4 && x >= 0 && y <= ConnectFour.HEIGHT - 1){
 			if(super.board[x][y]==numP){
 				nb += 1;
+				if(nb == 4){
+			return true;
+				}
 			}
 			else nb = 0;
 			x = x-1;
 			y = y+1;
-		}
-		
-		if(nb == 4){
-			return true;
-		}
-		
+		}		
 		return false;
 	}
 

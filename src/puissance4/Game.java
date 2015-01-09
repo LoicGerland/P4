@@ -35,7 +35,6 @@ public class Game {
 			j2 = new Humain(2,"J2");
 			break;
 		case 3:
-			n = 3;
 			break;
 		default:
 			n = 0;
